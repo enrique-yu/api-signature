@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icoolkj.api.mapper.OpenApiAuthorityMapper">
+
+    <resultMap type="OpenApiAuthority" id="OpenApiAuthorityResult">
+        <id property="openApiId"    column="open_api_id"    />
+        <result property="appId"    column="app_id"    />
+        <result property="appKey"    column="app_key"    />
+        <result property="appSecret"    column="app_secret"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectOpenApiAuthorityVo">
+        SELECT o.open_api_id, o.app_id, o.app_key, o.app_secret, o.del_flag, o.create_by, o.create_time, o.update_by, o.update_time, o.remark
+        FROM open_api_authority o
+    </sql>
+
+    <select id="selectOpenApiAuthorityList" parameterType="String" resultMap="OpenApiAuthorityResult">
+        <include refid="selectOpenApiAuthorityVo"/>
+        where o.del_flag = '0'
+    </select>
+
+    <select id="selectOpenApiAuthorityByAppKey"  parameterType="String" resultType="String">
+        SELECT o.app_secret FROM open_api_authority o
+        WHERE o.del_flag = '0' AND app_key = #{appKey}
+    </select>
+
+</mapper>
