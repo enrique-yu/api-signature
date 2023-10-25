@@ -36,7 +36,7 @@ public class WrapUtilsTest {
         DefaultWrapData wrapData = new DefaultWrapData();
         wrapData.setName("defaultWrapData");
         wrapData.setUrl("http://localhost:18080/api/wrap/test/testCustomApiWrap");
-        WrapClient wrapClient = WrapClient.create("icoolkj", "icoolkj");
+        WrapClient wrapClient = WrapClient.create("icoolkj1", "icoolkj1");
         WrapRequest<DefaultWrapData> wrapDataWrapRequest = wrapClient.wrap(wrapData);
         System.out.println(JSON.toJSONString(wrapDataWrapRequest));
 

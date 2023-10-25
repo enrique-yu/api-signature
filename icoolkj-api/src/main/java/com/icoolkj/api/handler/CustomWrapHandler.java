@@ -11,6 +11,7 @@ import com.icoolkj.api.wrap.core.WrapRequest;
 import com.icoolkj.api.wrap.core.WrapSigner;
 import com.icoolkj.api.wrap.core.exception.WrapReplayAttackException;
 import com.icoolkj.api.wrap.core.exception.WrapTimestampException;
+import com.icoolkj.api.wrap.core.exception.WrapUnauthorizedException;
 import com.icoolkj.api.wrap.core.handler.DefaultWrapSigner;
 import org.springframework.stereotype.Component;
 
@@ -45,7 +46,7 @@ public class CustomWrapHandler implements WrapHandler
         if (StrUtil.isEmpty(secret)) {
             secret = openApiAuthorityService.selectOpenApiAuthorityByAppKey(appKey);
             if (StrUtil.isEmpty(secret)) {
-                throw new RuntimeException(String.format("appKey：%s,尚未授权，请联系管理员授权！", appKey));
+                throw new WrapUnauthorizedException(String.format("appKey：%s,尚未授权，请联系管理员授权！", appKey));
             }
         }
         return secret;
