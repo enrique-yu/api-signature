@@ -6,18 +6,21 @@ import com.icoolkj.api.wrap.client.WrapClient;
 import com.icoolkj.api.wrap.client.utils.http.HttpUtils;
 import com.icoolkj.api.wrap.core.WrapRequest;
 import com.icoolkj.api.wrap.web.entity.DefaultWrapData;
+import com.icoolkj.api.wrap.web.entity.SysUser;
 import org.junit.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Date;
+
 public class WrapUtilsTest {
 
     @Test
     public void testDefaultApiWrap() {
         DefaultWrapData wrapData = new DefaultWrapData();
-        wrapData.setName("defaultWrapData");
+        wrapData.setName("defaultWrapData默认处理请求测试");
         wrapData.setUrl("http://localhost:18080/api/wrap/test/testDefaultApiWrap");
         WrapClient wrapClient = WrapClient.create("icoolkj", "icoolkj");
         WrapRequest<DefaultWrapData> wrapDataWrapRequest = wrapClient.wrap(wrapData);
@@ -34,9 +37,9 @@ public class WrapUtilsTest {
     @Test
     public void testCustomApiWrap() {
         DefaultWrapData wrapData = new DefaultWrapData();
-        wrapData.setName("defaultWrapData");
+        wrapData.setName("testCustomApiWrap自定义处理请求测试");
         wrapData.setUrl("http://localhost:18080/api/wrap/test/testCustomApiWrap");
-        WrapClient wrapClient = WrapClient.create("icoolkj1", "icoolkj1");
+        WrapClient wrapClient = WrapClient.create("icoolkj", "icoolkj");
         WrapRequest<DefaultWrapData> wrapDataWrapRequest = wrapClient.wrap(wrapData);
         System.out.println(JSON.toJSONString(wrapDataWrapRequest));
 
@@ -45,4 +48,55 @@ public class WrapUtilsTest {
 
         System.out.println(result);
     }
+
+    @Test
+    public void testUserInsert() {
+        SysUser sysUser = new SysUser();
+        sysUser.setUserId("569865820228526088");
+        sysUser.setDeptId("563785611970871296");
+        sysUser.setUserName("icoolkj_zhangtao");
+        sysUser.setNickName("张涛");
+        sysUser.setEmail("zhangtao@qq.com");
+        sysUser.setPhonenumber("15898989898");
+        sysUser.setSex("男");
+        sysUser.setAvatar("test");
+        sysUser.setPassword("zhangtao123456");
+        sysUser.setCreateBy("zhangtao");
+        sysUser.setUpdateTime(new Date());
+        WrapClient wrapClient = WrapClient.create("icoolkj", "icoolkj");
+        WrapRequest<SysUser> wrapDataWrapRequest = wrapClient.wrap(sysUser);
+        System.out.println(JSON.toJSONString(wrapDataWrapRequest));
+
+        String result = HttpUtils.request("http://localhost:18080/api/wrap/test/testUserInsert", Method.POST.name(),
+                wrapDataWrapRequest, null, 10000);
+
+        System.out.println(result);
+    }
+
+    @Test
+    public void updateUserInsert() {
+        SysUser sysUser = new SysUser();
+        sysUser.setUserId("569865820228526088");
+        sysUser.setDeptId("563785611970871296");
+        sysUser.setUserName("icoolkj_zhangtao");
+        sysUser.setNickName("张涛");
+        sysUser.setEmail("zhangtao@qq.com");
+        sysUser.setPhonenumber("15898989898");
+        sysUser.setSex("男");
+        sysUser.setAvatar("test");
+        sysUser.setPassword("zhangtao123456");
+        sysUser.setUpdateBy("icoolkj_zhangtao");
+        sysUser.setUpdateTime(new Date());
+        WrapClient wrapClient = WrapClient.create("icoolkj", "icoolkj");
+        WrapRequest<SysUser> wrapDataWrapRequest = wrapClient.wrap(sysUser);
+        System.out.println(JSON.toJSONString(wrapDataWrapRequest));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Connection", "false");
+        HttpEntity<String> request = new HttpEntity(wrapDataWrapRequest, headers);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> result = restTemplate.postForEntity("http://localhost:18080/api/wrap/test/testUserUpdate", request, String.class );
+        System.out.println(result);
+    }
+
 }
