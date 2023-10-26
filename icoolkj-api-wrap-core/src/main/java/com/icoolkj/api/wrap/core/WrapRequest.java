@@ -1,7 +1,5 @@
 package com.icoolkj.api.wrap.core;
 
-import com.icoolkj.api.wrap.core.WrapData;
-
 /**
  * API包裹请求
  *

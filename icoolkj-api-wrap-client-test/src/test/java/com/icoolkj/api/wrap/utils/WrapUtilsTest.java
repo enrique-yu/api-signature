@@ -31,7 +31,7 @@ public class WrapUtilsTest {
         HttpEntity<String> request = new HttpEntity(wrapDataWrapRequest, headers);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> result = restTemplate.postForEntity("http://localhost:18080/api/wrap/test/testDefaultApiWrap", request, String.class );
-        System.out.println(result);
+        System.out.println(result.getBody());
     }
 
     @Test
@@ -96,7 +96,33 @@ public class WrapUtilsTest {
         HttpEntity<String> request = new HttpEntity(wrapDataWrapRequest, headers);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> result = restTemplate.postForEntity("http://localhost:18080/api/wrap/test/testUserUpdate", request, String.class );
-        System.out.println(result);
+        System.out.println(result.getBody());
+    }
+
+    @Test
+    public void testBindingResult() {
+        SysUser sysUser = new SysUser();
+        sysUser.setUserId("569865820228526088");
+        sysUser.setDeptId("563785611970871296");
+        sysUser.setUserName("icoolkj_zhangtao");
+        sysUser.setNickName("张涛");
+        sysUser.setEmail("zhangtao@qq.com");
+        sysUser.setPhonenumber("15898989898");
+        sysUser.setSex("男");
+        sysUser.setAvatar("test");
+        sysUser.setPassword("zhangtao123456");
+        sysUser.setUpdateBy("icoolkj_zhangtao");
+        sysUser.setUpdateTime(new Date());
+        WrapClient wrapClient = WrapClient.create("icoolkj", "icoolkj");
+        WrapRequest<SysUser> wrapDataWrapRequest = wrapClient.wrap(sysUser);
+        System.out.println(JSON.toJSONString(wrapDataWrapRequest));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Connection", "false");
+        HttpEntity<String> request = new HttpEntity(wrapDataWrapRequest, headers);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> result = restTemplate.postForEntity("http://localhost:18080/api/wrap/test/testBindingResult", request, String.class );
+        System.out.println(result.getBody());
     }
 
 }

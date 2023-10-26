@@ -10,7 +10,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 
+/**
+ * API 统一异常处理类
+ *
+ * @author icoolkj
+ */
 @RestControllerAdvice
 public class ApiGlobalException
 {
@@ -25,6 +31,19 @@ public class ApiGlobalException
         log.error("请求地址'{}',系统内部错误'{}'", requestURI, e.getMessage());
         return ResponseMessageUtils.error(ResponseMessageCode.ERROR.getCode(),
                 ResponseMessageCode.ERROR.getMessage(),
+                null,
+                e.getMessage());
+    }
+
+    /**
+     * bean对象属性验证
+     */
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseMessage ConstraintViolationException(ConstraintViolationException e, HttpServletRequest request) {
+        String requestURI = request.getRequestURI();
+        log.error("请求地址'{}',请求参数错误'{}'", requestURI, e.getMessage());
+        return ResponseMessageUtils.error(ResponseMessageCode.BAD_REQUEST.getCode(),
+                ResponseMessageCode.BAD_REQUEST.getMessage(),
                 null,
                 e.getMessage());
     }

@@ -9,6 +9,7 @@ import com.icoolkj.api.handler.CustomWrapHandler;
 import com.icoolkj.api.service.SysUserService;
 import com.icoolkj.api.utils.ResponseMessage;
 import com.icoolkj.api.utils.ResponseMessageUtils;
+import com.icoolkj.api.utils.bean.BeanValidators;
 import com.icoolkj.api.wrap.boot.annotation.ApiWrap;
 import com.icoolkj.api.wrap.core.WrapRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Validator;
+
 @RestController
 @RequestMapping("/api/wrap/test")
 public class TestApiWrapController
 {
-
     @Autowired
     private SysUserService sysUserService;
+
+    @Autowired
+    private Validator validator;
 
     @ApiWrap
     @Log(title = "testDefaultApiWrap日志", businessType = BusinessType.INSERT)
@@ -52,6 +57,17 @@ public class TestApiWrapController
     @Log(title = "testUserUpdate", businessType = BusinessType.INSERT)
     @PostMapping( "/testUserUpdate")
     public ResponseMessage testUserUpdate(@RequestBody WrapRequest<SysUser> wrapRequest){
+        sysUserService.updateUser(wrapRequest.getData());
+        return ResponseMessageUtils.success();
+    }
+
+    @ApiWrap(value = CustomWrapHandler.class)
+    @Log(title = "testBindingResult", businessType = BusinessType.INSERT)
+    @PostMapping( "/testBindingResult")
+    public ResponseMessage testBindingResult(@RequestBody WrapRequest<SysUser> wrapRequest){
+        // bean对象属性验证
+        BeanValidators.validateWithException(validator, wrapRequest.getData());
+
         sysUserService.updateUser(wrapRequest.getData());
         return ResponseMessageUtils.success();
     }
