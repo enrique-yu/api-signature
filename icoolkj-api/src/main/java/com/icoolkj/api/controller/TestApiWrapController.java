@@ -12,6 +12,7 @@ import com.icoolkj.api.utils.ResponseMessageUtils;
 import com.icoolkj.api.utils.bean.BeanValidators;
 import com.icoolkj.api.wrap.boot.annotation.ApiWrap;
 import com.icoolkj.api.wrap.core.WrapRequest;
+import com.icoolkj.api.wrap.core.utils.AESUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,9 @@ public class TestApiWrapController
 
     @Autowired
     private Validator validator;
+
+    @Autowired
+    private CustomWrapHandler customWrapHandler;
 
     @ApiWrap
     @Log(title = "testDefaultApiWrap日志", businessType = BusinessType.INSERT)
@@ -65,10 +69,16 @@ public class TestApiWrapController
     @Log(title = "testBindingResult", businessType = BusinessType.INSERT)
     @PostMapping( "/testBindingResult")
     public ResponseMessage testBindingResult(@RequestBody WrapRequest<SysUser> wrapRequest){
+        String appSecret = customWrapHandler.getAppSecret(wrapRequest.getAppKey());
+        SysUser sysUser = wrapRequest.getData();
+        // 敏感数据解密进行校验
+        sysUser.setEmail(AESUtil.decrypt(sysUser.getEmail(), appSecret));
+        sysUser.setPhonenumber(AESUtil.decrypt(sysUser.getPhonenumber(), appSecret));
+        sysUser.setPassword(AESUtil.decrypt(sysUser.getPassword(), appSecret));
         // bean对象属性验证
-        BeanValidators.validateWithException(validator, wrapRequest.getData());
+        BeanValidators.validateWithException(validator, sysUser);
 
-        sysUserService.updateUser(wrapRequest.getData());
+        sysUserService.updateUser(sysUser);
         return ResponseMessageUtils.success();
     }
 

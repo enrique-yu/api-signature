@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSON;
 import com.icoolkj.api.wrap.client.WrapClient;
 import com.icoolkj.api.wrap.client.utils.http.HttpUtils;
 import com.icoolkj.api.wrap.core.WrapRequest;
+import com.icoolkj.api.wrap.core.utils.AESUtil;
 import com.icoolkj.api.wrap.web.entity.DefaultWrapData;
 import com.icoolkj.api.wrap.web.entity.SysUser;
 import org.junit.Test;
@@ -17,12 +18,15 @@ import java.util.Date;
 
 public class WrapUtilsTest {
 
+    public static final String appKey ="icoolkj";
+    public static final String appSecret ="icoolkj";
+
     @Test
     public void testDefaultApiWrap() {
         DefaultWrapData wrapData = new DefaultWrapData();
         wrapData.setName("defaultWrapData默认处理请求测试");
         wrapData.setUrl("http://localhost:18080/api/wrap/test/testDefaultApiWrap");
-        WrapClient wrapClient = WrapClient.create("icoolkj", "icoolkj");
+        WrapClient wrapClient = WrapClient.create(appKey, appSecret);
         WrapRequest<DefaultWrapData> wrapDataWrapRequest = wrapClient.wrap(wrapData);
         System.out.println(JSON.toJSONString(wrapDataWrapRequest));
 
@@ -39,7 +43,7 @@ public class WrapUtilsTest {
         DefaultWrapData wrapData = new DefaultWrapData();
         wrapData.setName("testCustomApiWrap自定义处理请求测试");
         wrapData.setUrl("http://localhost:18080/api/wrap/test/testCustomApiWrap");
-        WrapClient wrapClient = WrapClient.create("icoolkj", "icoolkj");
+        WrapClient wrapClient = WrapClient.create(appKey, appSecret);
         WrapRequest<DefaultWrapData> wrapDataWrapRequest = wrapClient.wrap(wrapData);
         System.out.println(JSON.toJSONString(wrapDataWrapRequest));
 
@@ -63,7 +67,7 @@ public class WrapUtilsTest {
         sysUser.setPassword("zhangtao123456");
         sysUser.setCreateBy("zhangtao");
         sysUser.setUpdateTime(new Date());
-        WrapClient wrapClient = WrapClient.create("icoolkj", "icoolkj");
+        WrapClient wrapClient = WrapClient.create(appKey, appSecret);
         WrapRequest<SysUser> wrapDataWrapRequest = wrapClient.wrap(sysUser);
         System.out.println(JSON.toJSONString(wrapDataWrapRequest));
 
@@ -87,7 +91,7 @@ public class WrapUtilsTest {
         sysUser.setPassword("zhangtao123456");
         sysUser.setUpdateBy("icoolkj_zhangtao");
         sysUser.setUpdateTime(new Date());
-        WrapClient wrapClient = WrapClient.create("icoolkj", "icoolkj");
+        WrapClient wrapClient = WrapClient.create(appKey, appSecret);
         WrapRequest<SysUser> wrapDataWrapRequest = wrapClient.wrap(sysUser);
         System.out.println(JSON.toJSONString(wrapDataWrapRequest));
 
@@ -106,14 +110,14 @@ public class WrapUtilsTest {
         sysUser.setDeptId("563785611970871296");
         sysUser.setUserName("icoolkj_zhangtao");
         sysUser.setNickName("张涛");
-        sysUser.setEmail("zhangtao@qq.com");
-        sysUser.setPhonenumber("15898989898");
+        sysUser.setEmail(AESUtil.encrypt("zhangtao@qq.com", appSecret));
+        sysUser.setPhonenumber(AESUtil.encrypt("15898989898", appSecret));
         sysUser.setSex("男");
         sysUser.setAvatar("test");
-        sysUser.setPassword("zhangtao123456");
+        sysUser.setPassword(AESUtil.encrypt("zhangtao123456", appSecret));
         sysUser.setUpdateBy("icoolkj_zhangtao");
         sysUser.setUpdateTime(new Date());
-        WrapClient wrapClient = WrapClient.create("icoolkj", "icoolkj");
+        WrapClient wrapClient = WrapClient.create(appKey, appSecret);
         WrapRequest<SysUser> wrapDataWrapRequest = wrapClient.wrap(sysUser);
         System.out.println(JSON.toJSONString(wrapDataWrapRequest));
 
