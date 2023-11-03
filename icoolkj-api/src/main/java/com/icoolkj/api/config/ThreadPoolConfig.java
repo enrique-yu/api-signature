@@ -53,7 +53,7 @@ public class ThreadPoolConfig
     protected ScheduledExecutorService scheduledExecutorService()
     {
         return new ScheduledThreadPoolExecutor(threadPoolProperties.getCorePoolSize(),
-                new BasicThreadFactory.Builder().namingPattern("schedule-pool-%d").daemon(true).build(),
+                new BasicThreadFactory.Builder().namingPattern(threadPoolProperties.getPrefixName() + "%d").daemon(true).build(),
                 new ThreadPoolExecutor.CallerRunsPolicy())
         {
             @Override

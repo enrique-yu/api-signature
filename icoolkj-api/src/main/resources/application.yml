@@ -13,7 +13,7 @@ spring:
     # 地址
     host: 127.0.0.1
     # 端口，默认为6379
-    port: 16379
+    port: 6379
     # 数据库索引
     database: 1
     # 密码
@@ -59,6 +59,15 @@ sequence:
   id-worker: 0
   # 数据中心ID【可用0、1、2、3、....31这32个数字】
   id-datacenter: 0
+
+# 线程池配置
+thread:
+  poolexecutor:
+    corePoolSize: 50 # 核心线程数量
+    maxPoolSize: 200 # 最大线程数量
+    queueCapacity: 1000 # 队列长度
+    keepAliveSeconds: 300 # 存活时间
+    prefixName: "icoolkj-schedule-pool-" # 线程名称前缀
 
 api:
   wrap:
