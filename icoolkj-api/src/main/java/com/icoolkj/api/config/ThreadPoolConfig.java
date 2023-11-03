@@ -1,5 +1,6 @@
 package com.icoolkj.api.config;
 
+import com.icoolkj.api.config.properties.ThreadPoolProperties;
 import com.icoolkj.api.utils.Threads;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.springframework.context.annotation.Bean;
@@ -18,27 +19,29 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 public class ThreadPoolConfig
 {
-    // 核心线程池大小
-    private int corePoolSize = 50;
+    private final ThreadPoolProperties threadPoolProperties;
 
-    // 最大可创建的线程数
-    private int maxPoolSize = 200;
-
-    // 队列最大长度
-    private int queueCapacity = 1000;
-
-    // 线程池维护线程所允许的空闲时间
-    private int keepAliveSeconds = 300;
+    public ThreadPoolConfig(ThreadPoolProperties threadPoolProperties) {
+        this.threadPoolProperties = threadPoolProperties;
+    }
 
     @Bean(name = "threadPoolTaskExecutor")
-    public ThreadPoolTaskExecutor threadPoolTaskExecutor()
-    {
-        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setMaxPoolSize(maxPoolSize);
-        executor.setCorePoolSize(corePoolSize);
-        executor.setQueueCapacity(queueCapacity);
-        executor.setKeepAliveSeconds(keepAliveSeconds);
-        // 线程池对拒绝任务(无线程可用)的处理策略
+    public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
+        return configureExecutor(new ThreadPoolTaskExecutor());
+    }
+
+    @Bean("visibleTaskExecutor")
+    public ThreadPoolTaskExecutor visibleThreadPoolTaskExecutor() {
+        return configureExecutor(new VisibleThreadPoolTaskExecutor());
+    }
+
+    private ThreadPoolTaskExecutor configureExecutor(ThreadPoolTaskExecutor executor) {
+        executor.setCorePoolSize(threadPoolProperties.getCorePoolSize());
+        executor.setMaxPoolSize(threadPoolProperties.getMaxPoolSize());
+        executor.setQueueCapacity(threadPoolProperties.getQueueCapacity());
+        executor.setKeepAliveSeconds(threadPoolProperties.getKeepAliveSeconds());
+        executor.setThreadNamePrefix(threadPoolProperties.getPrefixName());
+        executor.setWaitForTasksToCompleteOnShutdown(true);
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         return executor;
     }
@@ -49,7 +52,7 @@ public class ThreadPoolConfig
     @Bean(name = "scheduledExecutorService")
     protected ScheduledExecutorService scheduledExecutorService()
     {
-        return new ScheduledThreadPoolExecutor(corePoolSize,
+        return new ScheduledThreadPoolExecutor(threadPoolProperties.getCorePoolSize(),
                 new BasicThreadFactory.Builder().namingPattern("schedule-pool-%d").daemon(true).build(),
                 new ThreadPoolExecutor.CallerRunsPolicy())
         {
@@ -61,4 +64,5 @@ public class ThreadPoolConfig
             }
         };
     }
+
 }

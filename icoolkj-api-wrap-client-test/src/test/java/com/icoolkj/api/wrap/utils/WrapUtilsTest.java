@@ -115,7 +115,8 @@ public class WrapUtilsTest {
         sysUser.setEmail(AESUtils.encrypt("zhangtao@qq.com", appSecret));
         sysUser.setPhonenumber(AESUtils.encrypt("15898989898", appSecret));
         sysUser.setSex("男");
-        sysUser.setAvatar(Base64.encode(ImageUtils.localImageToBase64("src/main/resources/images/icoolkj.jpg")));
+        sysUser.setAvatar("test");
+        //sysUser.setAvatar(Base64.encode(ImageUtils.localImageToBase64("src/main/resources/images/icoolkj.jpg")));
         sysUser.setPassword(AESUtils.encrypt("zhangtao123456", appSecret));
         sysUser.setUpdateBy("icoolkj_zhangtao");
         sysUser.setUpdateTime(new Date());
