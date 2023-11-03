@@ -1,5 +1,9 @@
 package com.icoolkj.api.wrap.core.utils;
 
+import com.icoolkj.api.wrap.core.exception.AesDecryptionException;
+import com.icoolkj.api.wrap.core.exception.AesEncryptionException;
+import com.icoolkj.api.wrap.core.exception.AesKeyGenerationException;
+
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -8,12 +12,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class AESUtils
 {
-    private static final Logger log = Logger.getLogger(AESUtils.class.getName());
     private static final String KEY_ALGORITHM = "AES";
     private static final String DEFAULT_CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding"; //默认的加密算法
     private static final int DEFAULT_KEY_SIZE = 128; // 默认的密钥长度
@@ -49,9 +50,7 @@ public class AESUtils
             // 通过Base64转码
             return Base64.getEncoder().encodeToString(encrypted);
         } catch (Exception ex) {
-            // ex.printStackTrace();
-            log.log(Level.SEVERE, "Error during encryption", ex);
-            return null;
+            throw new AesEncryptionException("Error during encryption", ex);
         }
     }
 
@@ -84,9 +83,7 @@ public class AESUtils
             byte[] decrypted = cipher.doFinal(Base64.getDecoder().decode(encryptedData));
             return new String(decrypted, StandardCharsets.UTF_8);
         } catch (Exception ex) {
-            // ex.printStackTrace();
-            log.log(Level.SEVERE, "Error during decryption", ex);
-            return null;
+            throw new AesDecryptionException("Error during decryption", ex);
         }
     }
 
@@ -108,9 +105,7 @@ public class AESUtils
             // 转换为AES专用密钥
             return new SecretKeySpec(secretKey.getEncoded(), KEY_ALGORITHM);
         } catch (NoSuchAlgorithmException ex) {
-            // ex.printStackTrace();
-            log.log(Level.SEVERE, "Error during key generation", ex);
-            return null;
+            throw new AesKeyGenerationException("Error during key generation", ex);
         }
     }
 }

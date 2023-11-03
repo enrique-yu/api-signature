@@ -5,8 +5,16 @@ package com.icoolkj.api.wrap.core.exception;
  *
  * @author icoolkj
  */
-public class WrapUnauthorizedException extends WrapException {
+public class WrapUnauthorizedException extends WrapException
+{
+    public WrapUnauthorizedException() {
+    }
+
     public WrapUnauthorizedException(String message) {
         super(message);
+    }
+
+    public WrapUnauthorizedException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

@@ -3,11 +3,15 @@ package com.icoolkj.api.wrap.core.exception;
 /**
  * 签名异常
  *
- * @author linfeng
+ * @author icoolkj
  */
-public class WrapSigningException extends WrapException {
-    @SuppressWarnings("unused")
+public class WrapSigningException extends WrapException
+{
     public WrapSigningException() {
+    }
+
+    public WrapSigningException(String message) {
+        super(message);
     }
 
     public WrapSigningException(String message, Throwable cause) {
