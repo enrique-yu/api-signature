@@ -2,7 +2,6 @@ package com.icoolkj.api.config;
 
 import com.icoolkj.api.config.properties.ThreadPoolProperties;
 import com.icoolkj.api.utils.Threads;
-import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -52,17 +51,24 @@ public class ThreadPoolConfig
     @Bean(name = "scheduledExecutorService")
     protected ScheduledExecutorService scheduledExecutorService()
     {
-        return new ScheduledThreadPoolExecutor(threadPoolProperties.getCorePoolSize(),
-                new BasicThreadFactory.Builder().namingPattern(threadPoolProperties.getPrefixName() + "%d").daemon(true).build(),
-                new ThreadPoolExecutor.CallerRunsPolicy())
-        {
+        ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(threadPoolProperties.getCorePoolSize()) {
             @Override
-            protected void afterExecute(Runnable r, Throwable t)
-            {
+            protected void afterExecute(Runnable r, Throwable t) {
                 super.afterExecute(r, t);
                 Threads.printException(r, t);
             }
         };
+
+        executor.setThreadFactory(runnable -> {
+            Thread thread = new Thread(runnable);
+            thread.setName(threadPoolProperties.getPrefixName() + thread.getId());
+            thread.setDaemon(true);
+            return thread;
+        });
+
+        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+
+        return executor;
     }
 
 }
