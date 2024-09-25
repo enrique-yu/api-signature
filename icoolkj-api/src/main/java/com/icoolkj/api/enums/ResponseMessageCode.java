@@ -1,7 +1,5 @@
 package com.icoolkj.api.enums;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-
 /**
  * Http状态返回枚举
  *

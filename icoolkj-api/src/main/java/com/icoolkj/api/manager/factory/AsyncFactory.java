@@ -1,7 +1,6 @@
 package com.icoolkj.api.manager.factory;
 
 import com.icoolkj.api.entity.OpenApiOperLog;
-import com.icoolkj.api.mapper.OpenApiOperLogMapper;
 import com.icoolkj.api.service.OpenApiOperLogService;
 import com.icoolkj.api.spring.SpringUtils;
 import com.icoolkj.api.utils.ip.AddressUtils;

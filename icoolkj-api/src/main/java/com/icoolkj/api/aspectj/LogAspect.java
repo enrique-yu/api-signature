@@ -10,6 +10,8 @@ import com.icoolkj.api.manager.AsyncManager;
 import com.icoolkj.api.manager.factory.AsyncFactory;
 import com.icoolkj.api.utils.RequestContextHolderUtil;
 import com.icoolkj.api.utils.ip.IpUtils;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -23,8 +25,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
 import java.util.Map;
 
