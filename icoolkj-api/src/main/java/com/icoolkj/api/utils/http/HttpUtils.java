@@ -16,7 +16,7 @@ import java.security.cert.X509Certificate;
 /**
  * 通用http发送方法
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public class HttpUtils
 {

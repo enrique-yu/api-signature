@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * redis 签名存储
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public class RedisWrapStore extends LocalWrapStore {
 

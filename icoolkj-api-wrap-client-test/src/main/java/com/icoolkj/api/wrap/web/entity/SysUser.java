@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * 用户对象 SysUser
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public class SysUser extends WrapData
 {

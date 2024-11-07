@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 /**
  * JsonUtils
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public class JsonUtils {
 

@@ -19,7 +19,7 @@ import java.util.Optional;
 /**
  * 应用级对象获取工具类
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public class RequestContextHolderUtil
 {

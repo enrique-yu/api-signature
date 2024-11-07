@@ -3,7 +3,7 @@ package com.icoolkj.api.wrap.core.exception;
 /**
  * Base Wrap Exception
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public class WrapException extends RuntimeException
 {

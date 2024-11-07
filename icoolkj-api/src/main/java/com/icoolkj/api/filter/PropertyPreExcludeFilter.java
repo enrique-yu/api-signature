@@ -5,7 +5,7 @@ import com.alibaba.fastjson2.filter.SimplePropertyPreFilter;
 /**
  * 排除JSON敏感属性
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public class PropertyPreExcludeFilter extends SimplePropertyPreFilter
 {

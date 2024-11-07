@@ -12,7 +12,7 @@ import java.util.Set;
 /**
  * http请求工具类
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 @SuppressWarnings("all")
 public class HttpUtils {

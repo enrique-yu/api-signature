@@ -3,7 +3,7 @@ package com.icoolkj.api.entity;
 /**
  * 第三方系统提供接口信息权限配置类
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public class OpenApiAuthority extends BaseEntity
 {

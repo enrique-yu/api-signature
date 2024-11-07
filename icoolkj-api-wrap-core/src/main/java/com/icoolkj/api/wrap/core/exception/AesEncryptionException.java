@@ -3,7 +3,7 @@ package com.icoolkj.api.wrap.core.exception;
 /**
  * 自定义AES加密异常
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public class AesEncryptionException extends WrapException
 {

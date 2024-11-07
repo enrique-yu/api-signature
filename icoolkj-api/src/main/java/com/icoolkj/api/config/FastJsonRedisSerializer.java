@@ -14,7 +14,7 @@ import java.nio.charset.Charset;
 /**
  * Redis使用FastJson序列化
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public class FastJsonRedisSerializer<T> implements RedisSerializer<T>
 {

@@ -15,7 +15,7 @@ import jakarta.validation.ConstraintViolationException;
 /**
  * API 统一异常处理类
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 @RestControllerAdvice
 public class ApiGlobalException

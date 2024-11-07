@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 获取地址类
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public class AddressUtils
 {

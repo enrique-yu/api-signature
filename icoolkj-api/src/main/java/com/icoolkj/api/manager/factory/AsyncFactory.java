@@ -10,7 +10,7 @@ import java.util.TimerTask;
 /**
  * 异步工厂（产生任务用）
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public class AsyncFactory
 {

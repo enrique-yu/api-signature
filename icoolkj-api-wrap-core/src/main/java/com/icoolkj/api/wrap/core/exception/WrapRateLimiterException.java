@@ -3,7 +3,7 @@ package com.icoolkj.api.wrap.core.exception;
 /**
  * 限流异常
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public class WrapRateLimiterException extends WrapException
 {

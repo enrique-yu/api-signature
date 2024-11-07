@@ -3,7 +3,7 @@ package com.icoolkj.api.utils.uuid;
 /**
  * @ProjectName: IcoolkjOracle
  * @ClassName: IdWorker
- * @Author: icoolkj
+ * @Author: haiwei.yu01
  * @Date: 2020/1/2 10:01
  */
 public class IdWorker {

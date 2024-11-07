@@ -12,7 +12,7 @@ import java.io.*;
 /**
  * 图片处理工具类 ImageUtils
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public class ImageUtils
 {

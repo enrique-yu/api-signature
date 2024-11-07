@@ -3,7 +3,7 @@ package com.icoolkj.api.enums;
 /**
  * 限流类型
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 
 public enum LimitType

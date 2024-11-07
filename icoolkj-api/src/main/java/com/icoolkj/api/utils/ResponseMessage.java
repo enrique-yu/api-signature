@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * 通用返回类
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public class ResponseMessage<T> implements Serializable
 {

@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 第三方系统提供接口信息操作日志记录
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public class OpenApiOperLog extends BaseEntity
 {

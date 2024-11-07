@@ -3,7 +3,7 @@ package com.icoolkj.api.constant;
 /**
  * 缓存的key 常量
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public class CacheConstants
 {

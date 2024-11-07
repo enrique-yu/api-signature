@@ -3,7 +3,7 @@ package com.icoolkj.api.wrap.core.exception;
 /**
  * Replay Attack Exception
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public class WrapReplayAttackException extends WrapException
 {

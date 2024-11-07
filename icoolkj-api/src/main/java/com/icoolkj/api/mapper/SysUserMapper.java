@@ -5,7 +5,7 @@ import com.icoolkj.api.entity.SysUser;
 /**
  * 用户表 数据层
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public interface SysUserMapper
 {

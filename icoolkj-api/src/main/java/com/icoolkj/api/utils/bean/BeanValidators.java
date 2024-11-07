@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * bean对象属性验证
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  */
 public class BeanValidators
 {

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 /**
  * 线程池属性类
  *
- * @author icoolkj
+ * @author: haiwei.yu01
  **/
 @Component
 @ConfigurationProperties(prefix = "thread.poolexecutor")
